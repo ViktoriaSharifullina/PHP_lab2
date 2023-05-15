@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +13,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Создаем 100 категорий
+        $categoryCount = 100;
+        $childCount = 10;
+        $categories = Category::factory()
+            ->count($categoryCount)
+            ->create();
+        $categories->each(function ($category) use ($categories, $childCount) {
+            $categories->where('id', '!=', $category->id)
+                ->random($childCount)
+                ->each(function ($child) use ($category) {
+                    $category->children()->save($child);
+                });
+        });
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Для каждой категории создадим по 10 товаров
+        foreach ($categories as $category) {
+            Product::factory()
+                ->count(3)
+                ->create([
+                    'category_id' => $category->id,
+                ]);
+        }
     }
 }
