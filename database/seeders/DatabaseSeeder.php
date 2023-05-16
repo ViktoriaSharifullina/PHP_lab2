@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Создаем 100 категорий
-        $categoryCount = 100;
-        $childCount = 10;
+        // Создаем 30 категорий
+        $categoryCount = 30;
+        $childCount = 5;
         $categories = Category::factory()
             ->count($categoryCount)
             ->create();
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         // Для каждой категории создадим по 10 товаров
         foreach ($categories as $category) {
             Product::factory()
-                ->count(3)
+                ->count(10)
                 ->create([
                     'category_id' => $category->id,
                 ]);

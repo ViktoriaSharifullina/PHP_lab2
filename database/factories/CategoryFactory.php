@@ -11,7 +11,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(2),
-            'code' => $this->faker->unique()->sentence(2),
+            'code' => $this->faker->unique()->slug,
             'active' => $this->faker->boolean(75),
             'created_at' => $this->faker->date(),
             'parent_category_id' => Category::all()->count() ? Category::all()->random()->id : null

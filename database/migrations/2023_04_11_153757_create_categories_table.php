@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->boolean('active')->default(true);
             $table->date('created_at')->default(DB::raw('CURRENT_DATE'));
             $table->unsignedBigInteger('parent_category_id')->nullable();
