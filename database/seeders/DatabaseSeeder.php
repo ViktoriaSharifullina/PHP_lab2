@@ -8,12 +8,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Создаем 30 категорий
         $categoryCount = 30;
         $childCount = 5;
         $categories = Category::factory()
@@ -27,7 +23,6 @@ class DatabaseSeeder extends Seeder
                 });
         });
 
-        // Для каждой категории создадим по 10 товаров
         foreach ($categories as $category) {
             Product::factory()
                 ->count(10)
